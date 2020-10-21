@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block title%}
+  Home
+{% endblock %}
+
+{% block content %}
+  <h1 class="center">Welcome to Online Exam Taking Application</h1>
+  <h2>Select the set to begin with the exam</h2>
+  {% for choice in choices %}
+  <div class="row">
+    <div class="col-md-4">
+      <a href="/exam/{{ choice.0 }}"><h3>{{ choice.1 }}</h3></a>
+    </div>
+
+  </div>
+  {% endfor %}
+{% endblock %}

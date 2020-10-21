@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Questions(models.Model):
+class Question(models.Model):
     CAT_CHOICES = (
     ('set1','Set1'),
     ('set2','Set2'),
@@ -9,10 +9,11 @@ class Questions(models.Model):
     ('set4','Set4')
     )
     question = models.CharField(max_length = 250)
-    optiona = models.CharField(max_length = 100)
-    optionb = models.CharField(max_length = 100)
-    optionc = models.CharField(max_length = 100)
-    optiond = models.CharField(max_length = 100)
+    option1 = models.CharField(max_length = 100)
+    option2 = models.CharField(max_length = 100)
+    option3 = models.CharField(max_length = 100)
+    option4 = models.CharField(max_length = 100)
+    option5 = models.CharField(max_length = 100)
     answer = models.CharField(max_length = 100)
     catagory = models.CharField(max_length=20, choices = CAT_CHOICES)
 
