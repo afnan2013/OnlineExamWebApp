@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Question, Category
+from .models import Question, Category, Student, ExamPaper, Exam
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -12,9 +12,9 @@ def home(request):
 
 @login_required
 def dashboard(request):
-    choices = Category.objects.all()
-    print(choices)
-    return render(request, 'Exam/dashboard.html', {'choices':choices})
+    assignPaper = Student.objects.filter(user=request.user)
+    print(assignPaper)
+    return render(request, 'Exam/dashboard.html', {'choices':assignPaper})
 
 
 def register(request):
@@ -33,8 +33,13 @@ def register(request):
 
 @login_required
 def questions(request, choice):
+    exam = Exam.objects.filter(examName=choice)
     print(choice)
-    ques = Question.objects.filter(catagory=choice)
+    ques = []
+    for each_q in ExamPaper.objects.filter(paperName=exam[0].id):
+        q = Question.objects.filter(question=each_q.question)
+        ques.append(q[0])
+    print(ques)
     return render(request, 'Exam/questions.html', {'ques': ques})
 
 

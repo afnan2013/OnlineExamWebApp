@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -28,5 +29,25 @@ class Question(models.Model):
         return self.question
 
 
+class Exam(models.Model):
+    examName = models.CharField(max_length = 250)
+    examDate = models.DateField()
+
+    def __str__(self):
+        return self.examName
 
 
+class ExamPaper(models.Model):
+    paperName = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.paperName) +" - "+ str(self.question)
+
+
+class Student(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    exampaper = models.ForeignKey(Exam, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.user) +" : "+str(self.exampaper)
